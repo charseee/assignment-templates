@@ -85,10 +85,10 @@ def relationship_status(from_member, to_member, social_graph):
     elif from_member in social_graph[to_member]["following"]:
         return "followed by"
     elif to_member in social_graph[from_member]["following"]:
-        return "following"
+        return "follower"
     else:
         return "no relationship"
-
+    
 board1 = [
 ['X','X','O'],
 ['O','X','O'],
@@ -126,11 +126,35 @@ board6 = [
 ]
 
 board7 = [
-['X','X','O',''],
-['O','X','O','O'],
-['X','','','O'],
-['O','X','','']
+    ['X', 'O', 'X', 'X'],
+    ['', '', 'O', 'X'],
+    ['O', 'O', 'O', 'X'],
+    ['O', '', '', 'X']
 ]
+
+board8 = [
+    ['', '', '', '', 'O'],
+    ['X', 'X', '', 'O', 'X'],
+    ['X', 'O', 'O', 'O', 'X'],
+    ['', 'O', '', '', 'X'],
+    ['O', 'X', 'X', '', '']
+]
+
+board9 = [
+    ['X', '', '', 'O', '', 'O'],
+    ['', 'X', '', 'O', '', 'O'],
+    ['O', '', 'X', 'O', '', ''],
+    ['', 'O', '', 'X', '', 'O'],
+    ['', '', 'X', 'O', 'X', ''],
+    ['', '', 'X', 'O', '', 'X']
+]
+
+board10 = [
+    ['', '', ''],
+    ['', 'O', ''],
+    ['', '', '']
+]
+
 
 def tic_tac_toe(board):
     '''Tic Tac Toe.
@@ -159,18 +183,19 @@ def tic_tac_toe(board):
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
  
-    for row in board: # check the row
-        if len(set(row)) == 1: #contains 1 unique element so they are all the same (excluding empty cells)
+    for row in board:  # check the row
+        if "" not in row and len(set(row)) == 1:
             return row[0]
-    for col in range(len(board)): # check the column
-        if len(set(row[col] for row in board)) == 1: # for row in board to be able to directly iterate over the whole column 
-            return row[col]
-    for diag in range(len(board)):
-        if len(set(board[i][i] for i in range(len(board)))) == 1:    
-                return board[diag][diag]
-            # to generate the indices and access it by that position
-    print("NO WINNER") # no match found
-
+    for col in range(len(board)):  # check the column
+        if "" not in [row[col] for row in board] and len(set(row[col] for row in board)) == 1:
+            return board[0][col]
+    # check the main diagonal
+    if "" not in [board[i][i] for i in range(len(board))] and len(set(board[i][i] for i in range(len(board)))) == 1:
+        return board[0][0]
+    # check the anti-diagonal
+    if "" not in [board[j][len(board) - 1 - j] for j in range(len(board))] and len(set(board[j][len(board) - 1 - j] for j in range(len(board)))) == 1:
+        return board[0][len(board) - 1]
+    return "NO WINNER"
 
 legs = {
      ("upd","admu"):{
