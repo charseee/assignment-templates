@@ -252,7 +252,7 @@ def eta(first_stop, second_stop, route_map):
     '''
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
-        now = first_stop
+    now = first_stop
     total_time = 0
     
     while now != second_stop: # hasn't arrived to destination yet

@@ -36,23 +36,21 @@ def shift_letter(letter, shift):
         a single space if the original letter was a space.
     '''
     # Replace `pass` with your code.
-    # Stay within the function. Only use the parameters as input. The function should return your answer.
-
-    #space 
+    # Stay within the function. Only use the parameters as input. The function should return your answer.      
+    
+    alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    
     if letter == " ":
         return " "
-    else:
-    #letters
-        ascii = ord(letter) + shift #ord to convert str to ascii
 
-        if ascii > 90:
-            return chr(ascii - 26) #chr to convert ascii to str
+    index = alphabet.index(letter)
+    shifted_index = (index + shift) % len(alphabet) # ensure that it's within the range when wrapped
+    shifted_letter = alphabet[shifted_index]
 
-        else:
-            return chr(ascii)
+    return shifted_letter
         
-
 def caesar_cipher(message, shift):
+    
     '''Caesar Cipher.
     10 points.
 
@@ -73,18 +71,20 @@ def caesar_cipher(message, shift):
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
     
-    encrypted = ""
+    alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    shifted_message = ""
+    
     for i in range(len(message)):
         if message[i] == " ":
-            encrypted += " "
+            shifted_message += " "
         else:
-            ascii = ord(message[i])+ shift #ord to convert str to ascii
-            if ascii > 90:
-                encrypted += chr(ascii - 26) #chr to convert ascii to str
-            else:
-                encrypted += chr(ascii)
-    return encrypted
+            index = alphabet.index(message[i]) # gets the index of the later
+            shifted_index = (index + shift) % len(alphabet) # ensure that it's within the range when wrapped
+            shifted_letter = alphabet[shifted_index] 
+            shifted_message += shifted_letter
 
+    return shifted_message
+ 
 def shift_by_letter(letter, letter_shift):
     '''Shift By Letter.
     10 points.
@@ -114,15 +114,17 @@ def shift_by_letter(letter, letter_shift):
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
     
+    alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    
     if letter == " ":
         return " "
-    else:
-        ascii = ord(letter) + (ord(letter_shift) - 65)
-        if ascii > 90:
-            return chr(ascii - 26)
-        else:
-            return chr(ascii)
-
+    
+    index_lettershift = alphabet.index(letter_shift)
+    index = alphabet.index(letter)
+    shifted_index = (index + index_lettershift) % len(alphabet)
+    
+    return alphabet[shifted_index]
+            
 def vigenere_cipher(message, key):
     '''Vigenere Cipher.
     15 points.
@@ -155,17 +157,18 @@ def vigenere_cipher(message, key):
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
     
-    encrypted = ""
+    alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    shifted_message = ""
+    
     for i in range(len(message)):
         if message[i] == " ":
-            encrypted += " "
+            shifted_message += " "
         else:
-            ascii = ord(message[i]) + (ord(key[i]) - 65)
-            if ascii > 90:
-                encrypted += chr(ascii - 26)
-            else:
-                encrypted += chr(ascii)
-    return str(encrypted)
+            index_key = alphabet.index(key[i])
+            index = alphabet.index(message[i])
+            shifted_index = (index + index_key) % len(alphabet)
+            shifted_message += alphabet[shifted_index]  
+    return shifted_message
 
 def scytale_cipher(message, shift):
     '''Scytale Cipher.
@@ -259,7 +262,7 @@ def scytale_decipher(message, shift):
     '''
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
-    
+
     encrypted = ""
     for i in range(len(message)):        
         index = (i // (len(message) // shift)) + (i % (len(message) // shift)) * shift
