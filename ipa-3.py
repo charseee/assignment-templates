@@ -262,7 +262,7 @@ def eta(first_stop, second_stop, route_map):
         else: # if not true then have to find the next stop
             next_stop = None
             for leg in route_map:
-                if leg[0] == now:
+                if leg[0] == now: # checks if the starting stop of the current leg (leg[0]) is equal to the current stop (now). If they match, it means the current leg can be used to reach the next stop.
                     next_stop = leg[1]
                     total_time += route_map[leg]['travel_time_mins']
                     now = leg[1]

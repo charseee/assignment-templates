@@ -159,6 +159,13 @@ def vigenere_cipher(message, key):
     
     alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     shifted_message = ""
+   
+    # If not same length then add 
+    if len(key) != len(message):
+        key = key*(int(len(message) // len(key)))
+        if len(key) != len(message):
+            for i in range(len(message)-len(key)):
+                key = key + key[i]
     
     for i in range(len(message)):
         if message[i] == " ":
